@@ -1,0 +1,57 @@
+[
+  {
+    "dest_id": "D1",
+    "name": "Mumbai Nature's Basket",
+    "tier": "Tier 1 - Premium Retail",
+    "demand_kg": 3000,
+    "offering_price_per_kg": 42.0,
+    "min_shelf_life_hrs": 48.0,
+    "distance_km": 170,
+    "transit_time_hrs": 6.5,
+    "transport_cost_per_kg": 3.5
+  },
+  {
+    "dest_id": "D2",
+    "name": "Pune Reliance Fresh Hub",
+    "tier": "Tier 1 - Premium Retail",
+    "demand_kg": 2800,
+    "offering_price_per_kg": 40.0,
+    "min_shelf_life_hrs": 42.0,
+    "distance_km": 210,
+    "transit_time_hrs": 5.5,
+    "transport_cost_per_kg": 3.2
+  },
+  {
+    "dest_id": "D3",
+    "name": "Vashi APMC Rapid Mandi",
+    "tier": "Tier 2 - Rapid Mandi",
+    "demand_kg": 3500,
+    "offering_price_per_kg": 28.0,
+    "min_shelf_life_hrs": 20.0,
+    "distance_km": 160,
+    "transit_time_hrs": 5.0,
+    "transport_cost_per_kg": 2.8
+  },
+  {
+    "dest_id": "D4",
+    "name": "Kissan Food Processing Hub",
+    "tier": "Tier 3 - Processing Plant",
+    "demand_kg": 5000,
+    "offering_price_per_kg": 18.0,
+    "min_shelf_life_hrs": 8.0,
+    "distance_km": 45,
+    "transit_time_hrs": 1.5,
+    "transport_cost_per_kg": 1.2
+  },
+  {
+    "dest_id": "D5",
+    "name": "Zepto/Blinkit Dark Store Hub",
+    "tier": "Tier 2 - Rapid Mandi",
+    "demand_kg": 2500,
+    "offering_price_per_kg": 30.0,
+    "min_shelf_life_hrs": 14.0,
+    "distance_km": 140,
+    "transit_time_hrs": 4.5,
+    "transport_cost_per_kg": 2.5
+  }
+]

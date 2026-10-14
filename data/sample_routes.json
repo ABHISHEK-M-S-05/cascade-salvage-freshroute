@@ -1,0 +1,52 @@
+[
+  {
+    "route_id": "R01",
+    "origin_hub": "Nashik Agri Aggregation Hub",
+    "dest_id": "D1",
+    "distance_km": 170,
+    "transit_time_hrs": 6.5,
+    "transport_cost_per_kg": 3.5,
+    "vehicle_type": "Refrigerated Reefer 5T",
+    "status": "CLEAR"
+  },
+  {
+    "route_id": "R02",
+    "origin_hub": "Nashik Agri Aggregation Hub",
+    "dest_id": "D2",
+    "distance_km": 210,
+    "transit_time_hrs": 5.5,
+    "transport_cost_per_kg": 3.2,
+    "vehicle_type": "Refrigerated Reefer 5T",
+    "status": "CLEAR"
+  },
+  {
+    "route_id": "R03",
+    "origin_hub": "Nashik Agri Aggregation Hub",
+    "dest_id": "D3",
+    "distance_km": 160,
+    "transit_time_hrs": 5.0,
+    "transport_cost_per_kg": 2.8,
+    "vehicle_type": "Covered Ventilated 8T",
+    "status": "CLEAR"
+  },
+  {
+    "route_id": "R04",
+    "origin_hub": "Nashik Agri Aggregation Hub",
+    "dest_id": "D4",
+    "distance_km": 45,
+    "transit_time_hrs": 1.5,
+    "transport_cost_per_kg": 1.2,
+    "vehicle_type": "Direct Bulk Tipper 10T",
+    "status": "CLEAR"
+  },
+  {
+    "route_id": "R05",
+    "origin_hub": "Nashik Agri Aggregation Hub",
+    "dest_id": "D5",
+    "distance_km": 140,
+    "transit_time_hrs": 4.5,
+    "transport_cost_per_kg": 2.5,
+    "vehicle_type": "Express Reefer Van 2T",
+    "status": "CLEAR"
+  }
+]
