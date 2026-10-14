@@ -302,6 +302,3 @@ Do not label revenue minus transport cost as full net profit if acquisition cost
 
 Built by the Cascade Salvage team for the Wild Bugs Devfolio Hackathon.
 
-## License
-
-Add the license chosen by your team before public release.
