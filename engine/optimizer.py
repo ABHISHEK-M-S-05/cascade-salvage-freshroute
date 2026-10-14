@@ -396,6 +396,10 @@ class CascadeOptimizer:
             },
         }
 
+    # Alias for Member 2 backend compatibility
+    optimize = run_cascade_optimization
+
+
     # -------------------------------------------------------------------------
     # 3. EXPLAINABILITY GENERATOR
     # -------------------------------------------------------------------------
