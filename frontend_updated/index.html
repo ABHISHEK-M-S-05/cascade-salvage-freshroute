@@ -1,0 +1,679 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CASCADE SALVAGE: where every harvest outruns its expiry</title>
+  <meta name="description" content="CASCADE SALVAGE sends each batch of perishable produce to the most valuable destination it can still reach in time, and re-plans when a highway jams." />
+  <meta name="color-scheme" content="dark" />
+  <meta name="theme-color" content="#050c18" />
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+
+  <!-- Fonts are optional. Without network access styles.css falls back to system fonts. -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,650;12..96,800&family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" />
+
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body class="is-booting">
+  <a class="skip-link" href="#lab">Skip to the Rescue Lab</a>
+
+  <!-- Shared SVG definitions: knit stitches and yarn texture for the penguin. Kept rendered (not display:none) so patterns resolve. -->
+  <svg class="svg-defs" aria-hidden="true" focusable="false" width="0" height="0">
+    <defs>
+      <pattern id="kNavy" width="9" height="8" patternUnits="userSpaceOnUse">
+        <rect width="9" height="8" fill="#1a2747"/>
+        <path d="M4.5 7.9C2.1 6.8.3 3.8.7.3c2.1 1.1 3.7 4 3.8 7.6Z" fill="#33507f"/>
+        <path d="M4.5 7.9C6.9 6.8 8.7 3.8 8.3.3c-2.1 1.1-3.7 4-3.8 7.6Z" fill="#3c5a8d"/>
+        <path d="M1.6 1.6c.9 1.4 1.7 2.9 2.2 4.6" stroke="#6a87bb" stroke-width=".6" fill="none" stroke-linecap="round"/>
+      </pattern>
+      <pattern id="kCream" width="9" height="8" patternUnits="userSpaceOnUse">
+        <rect width="9" height="8" fill="#cfc3a8"/>
+        <path d="M4.5 7.9C2.1 6.8.3 3.8.7.3c2.1 1.1 3.7 4 3.8 7.6Z" fill="#efe5cf"/>
+        <path d="M4.5 7.9C6.9 6.8 8.7 3.8 8.3.3c-2.1 1.1-3.7 4-3.8 7.6Z" fill="#f8f0de"/>
+        <path d="M1.6 1.6c.9 1.4 1.7 2.9 2.2 4.6" stroke="#fffaf0" stroke-width=".6" fill="none" stroke-linecap="round"/>
+      </pattern>
+      <pattern id="kOrange" width="7" height="6" patternUnits="userSpaceOnUse">
+        <rect width="7" height="6" fill="#c9631a"/>
+        <path d="M3.5 5.9C1.6 5 .2 2.9.5.2c1.7.9 2.9 3 3 5.7Z" fill="#ff9a3c"/>
+        <path d="M3.5 5.9C5.4 5 6.8 2.9 6.5.2c-1.7.9-2.9 3-3 5.7Z" fill="#ffad55"/>
+      </pattern>
+      <pattern id="kCoral" width="8" height="7" patternUnits="userSpaceOnUse">
+        <rect width="8" height="7" fill="#b8423b"/>
+        <path d="M4 6.9C1.9 5.9.3 3.3.6.3c1.9 1 3.3 3.5 3.4 6.6Z" fill="#ff6f61"/>
+        <path d="M4 6.9C6.1 5.9 7.7 3.3 7.4.3c-1.9 1-3.3 3.5-3.4 6.6Z" fill="#ff8476"/>
+      </pattern>
+      <pattern id="kCyan" width="8" height="7" patternUnits="userSpaceOnUse">
+        <rect width="8" height="7" fill="#1d8ea8"/>
+        <path d="M4 6.9C1.9 5.9.3 3.3.6.3c1.9 1 3.3 3.5 3.4 6.6Z" fill="#43d1ec"/>
+        <path d="M4 6.9C6.1 5.9 7.7 3.3 7.4.3c-1.9 1-3.3 3.5-3.4 6.6Z" fill="#6ae0f4"/>
+      </pattern>
+      <pattern id="kWhite" width="8" height="7" patternUnits="userSpaceOnUse">
+        <rect width="8" height="7" fill="#b9cddc"/>
+        <path d="M4 6.9C1.9 5.9.3 3.3.6.3c1.9 1 3.3 3.5 3.4 6.6Z" fill="#eef6fb"/>
+        <path d="M4 6.9C6.1 5.9 7.7 3.3 7.4.3c-1.9 1-3.3 3.5-3.4 6.6Z" fill="#ffffff"/>
+      </pattern>
+      <pattern id="kRib" width="6" height="10" patternUnits="userSpaceOnUse">
+        <rect width="6" height="10" fill="#e9f3fa"/>
+        <rect width="3" height="10" fill="#c3d6e4"/>
+        <rect x="3.6" width=".8" height="10" fill="#ffffff" opacity=".8"/>
+      </pattern>
+      <radialGradient id="pgShade" cx=".42" cy=".32" r=".75">
+        <stop offset=".45" stop-color="#000" stop-opacity="0"/>
+        <stop offset="1" stop-color="#000" stop-opacity=".42"/>
+      </radialGradient>
+      <radialGradient id="pgBellyShade" cx=".5" cy=".35" r=".7">
+        <stop offset=".55" stop-color="#3b2a10" stop-opacity="0"/>
+        <stop offset="1" stop-color="#3b2a10" stop-opacity=".28"/>
+      </radialGradient>
+      <linearGradient id="pgRim" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#9fe3ff" stop-opacity=".75"/>
+        <stop offset=".6" stop-color="#9fe3ff" stop-opacity=".12"/>
+        <stop offset="1" stop-color="#9fe3ff" stop-opacity="0"/>
+      </linearGradient>
+      <filter id="yarn" x="-10%" y="-10%" width="120%" height="120%">
+        <feTurbulence type="fractalNoise" baseFrequency=".85" numOctaves="1" seed="4" result="n"/>
+        <feDisplacementMap in="SourceGraphic" in2="n" scale="2.6" xChannelSelector="R" yChannelSelector="G"/>
+      </filter>
+      <pattern id="hatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+        <rect width="6" height="6" fill="#7d8ca3" opacity=".35"/>
+        <rect width="2.2" height="6" fill="#7d8ca3"/>
+      </pattern>
+      <pattern id="hatchCoral" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(135)">
+        <rect width="6" height="6" fill="#ff7461" opacity=".3"/>
+        <rect width="2.2" height="6" fill="#ff7461"/>
+      </pattern>
+    </defs>
+  </svg>
+
+  <!-- The knitted penguin. app.js clones this for the hero and the companion so each copy can react on its own. -->
+  <template id="penguinTpl">
+    <svg class="penguin" viewBox="0 0 220 260" aria-hidden="true" focusable="false">
+      <ellipse class="pg-shadow" cx="110" cy="246" rx="58" ry="9" fill="#020611" opacity=".5"/>
+      <g class="pg-rig">
+        <g class="pg-feet" filter="url(#yarn)">
+          <path d="M70 232c-6-10 4-18 18-17 9 1 15 6 15 12 0 6-8 9-18 9-6 0-12-1-15-4Z" fill="url(#kOrange)"/>
+          <path d="M150 232c6-10-4-18-18-17-9 1-15 6-15 12 0 6 8 9 18 9 6 0 12-1 15-4Z" fill="url(#kOrange)"/>
+        </g>
+        <g class="pg-wing pg-wing-l" filter="url(#yarn)">
+          <path d="M52 128c-16 14-26 40-24 62 1 8 8 9 13 3 9-11 17-31 21-52Z" fill="url(#kNavy)"/>
+          <path d="M52 128c-16 14-26 40-24 62 1 8 8 9 13 3 9-11 17-31 21-52Z" fill="url(#pgShade)"/>
+        </g>
+        <g class="pg-wing pg-wing-r" filter="url(#yarn)">
+          <path d="M168 128c16 14 26 40 24 62-1 8-8 9-13 3-9-11-17-31-21-52Z" fill="url(#kNavy)"/>
+          <path d="M168 128c16 14 26 40 24 62-1 8-8 9-13 3-9-11-17-31-21-52Z" fill="url(#pgShade)"/>
+        </g>
+        <g class="pg-body" filter="url(#yarn)">
+          <path d="M110 36c48 0 66 52 64 104-2 56-26 88-64 88s-62-32-64-88c-2-52 16-104 64-104Z" fill="url(#kNavy)"/>
+          <path d="M110 36c48 0 66 52 64 104-2 56-26 88-64 88s-62-32-64-88c-2-52 16-104 64-104Z" fill="url(#pgShade)"/>
+          <g transform="translate(110 0) scale(.86 1) translate(-110 0)">
+            <path d="M110 70c12-10 34-8 38 10 3 12-2 22-4 30 10 14 16 34 15 56-1 34-20 56-49 56s-48-22-49-56c-1-22 5-42 15-56-2-8-7-18-4-30 4-18 26-20 38-10Z" fill="url(#kCream)"/>
+            <path d="M110 70c12-10 34-8 38 10 3 12-2 22-4 30 10 14 16 34 15 56-1 34-20 56-49 56s-48-22-49-56c-1-22 5-42 15-56-2-8-7-18-4-30 4-18 26-20 38-10Z" fill="url(#pgBellyShade)"/>
+          </g>
+        </g>
+        <path d="M110 36c48 0 66 52 64 104-2 56-26 88-64 88s-62-32-64-88c-2-52 16-104 64-104Z" fill="none" stroke="url(#pgRim)" stroke-width="2.4"/>
+        <path transform="translate(110 0) scale(.86 1) translate(-110 0)" d="M110 74c11-8 29-6 33 8 2 10-2 19-4 27 10 14 15 33 14 55-1 31-18 51-43 51s-42-20-43-51c-1-22 4-41 14-55-2-8-6-17-4-27 4-14 22-16 33-8" fill="none" stroke="#fff6e4" stroke-width="1.1" stroke-dasharray="2.4 3.2" stroke-linecap="round" opacity=".55"/>
+        <circle class="pg-cheek" cx="86" cy="104" r="7.5" fill="#ff7f8f" opacity=".5"/>
+        <circle class="pg-cheek" cx="134" cy="104" r="7.5" fill="#ff7f8f" opacity=".5"/>
+        <g class="pg-brows" opacity="0">
+          <path d="M83 76 Q92 71 100 76" stroke="#141826" stroke-width="3" fill="none" stroke-linecap="round"/>
+          <path d="M120 76 Q128 71 137 76" stroke="#141826" stroke-width="3" fill="none" stroke-linecap="round"/>
+        </g>
+        <g class="pg-eyes">
+          <g class="pg-eye">
+            <circle cx="93" cy="90" r="7.6" fill="#141826"/>
+            <circle cx="93" cy="90" r="7.6" fill="none" stroke="#2d3550" stroke-width="1.4"/>
+            <circle cx="91" cy="89" r="1.1" fill="#4a5578"/><circle cx="95" cy="91" r="1.1" fill="#4a5578"/>
+            <circle cx="90.4" cy="86.6" r="1.9" fill="#fff" opacity=".85"/>
+          </g>
+          <g class="pg-eye">
+            <circle cx="127" cy="90" r="7.6" fill="#141826"/>
+            <circle cx="127" cy="90" r="7.6" fill="none" stroke="#2d3550" stroke-width="1.4"/>
+            <circle cx="125" cy="89" r="1.1" fill="#4a5578"/><circle cx="129" cy="91" r="1.1" fill="#4a5578"/>
+            <circle cx="124.4" cy="86.6" r="1.9" fill="#fff" opacity=".85"/>
+          </g>
+        </g>
+        <g class="pg-beak-wrap" filter="url(#yarn)">
+          <path class="pg-beak" d="M99 100c5-5 17-5 22 0 1 2-5 11-11 14-6-3-12-12-11-14Z" fill="url(#kOrange)"/>
+        </g>
+        <g class="pg-scarf" filter="url(#yarn)">
+          <path d="M58 128c30 12 74 12 104 0l3 15c-32 14-78 14-110 0Z" fill="url(#kCyan)"/>
+          <path d="M71 133.5l-3 14.6M88 136.4l-1.4 14.8M105 137.4v14.9M122 136.9l1.4 14.8M139 134.4l3 14.6" stroke="#eef6fb" stroke-width="5.5" opacity=".92"/>
+          <g class="pg-scarf-tail">
+            <path d="M136 140c4 18 6 38 4 58l16-2c3-20 1-40-4-58Z" fill="url(#kCyan)"/>
+            <path d="M139 158l15-2M140 175l15-1.6" stroke="#eef6fb" stroke-width="5" opacity=".92"/>
+            <path d="M140 198l2 9M145 197.5l2 9.5M150 197l2.4 9" stroke="#43d1ec" stroke-width="2.4" stroke-linecap="round"/>
+          </g>
+        </g>
+        <g class="pg-hat">
+          <g filter="url(#yarn)">
+            <path d="M66 62c2-30 22-46 44-46s42 16 44 46Z" fill="url(#kCoral)"/>
+            <path d="M60 58c32-8 68-8 100 0l1 14c-34-8-68-8-102 0Z" fill="url(#kRib)"/>
+          </g>
+          <g class="pg-pom" filter="url(#yarn)">
+            <circle cx="110" cy="15" r="13" fill="url(#kWhite)"/>
+            <circle cx="106" cy="11" r="5" fill="#fff" opacity=".7"/>
+          </g>
+        </g>
+      </g>
+    </svg>
+  </template>
+
+  <!-- =========================== TOP BAR =========================== -->
+  <header class="topbar" id="topbar">
+    <div class="topbar-inner">
+      <a class="brand" href="#hero" aria-label="CASCADE SALVAGE, back to top">
+        <img class="brand-mark" src="assets/favicon.svg" alt="" width="34" height="34" />
+        <span class="brand-name">Cascade Salvage</span>
+      </a>
+      <nav class="nav" aria-label="Sections">
+        <a href="#story" data-nav="story">Story</a>
+        <a href="#coldchain" data-nav="coldchain">Cold chain</a>
+        <a href="#lab" data-nav="lab">Rescue Lab</a>
+        <a href="#studio" data-nav="studio">Studio</a>
+        <a href="#network" data-nav="network">Network</a>
+        <a href="#explorer" data-nav="explorer">Explorer</a>
+        <a href="#ledger" data-nav="ledger">Ledger</a>
+      </nav>
+      <div class="mode" aria-label="Data source">
+        <span id="modePill" class="mode-pill" data-mode="checking" role="status" aria-live="polite">
+          <span class="mode-dot" aria-hidden="true"></span><span id="modeLabel">Checking the API…</span>
+        </span>
+        <button type="button" id="reconnectBtn" class="icon-btn" aria-label="Check the API connection again" title="Check the API connection again">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><path d="M21 3v6h-6"/></svg>
+        </button>
+      </div>
+    </div>
+    <div class="progress" aria-hidden="true"><span id="scrollProgress"></span></div>
+  </header>
+
+  <main id="main">
+    <!-- ============================ HERO ============================ -->
+    <section id="hero" class="hero" aria-labelledby="heroTitle">
+      <div class="hero-scene" aria-hidden="true">
+        <div class="hero-stars"></div>
+        <svg class="aurora" viewBox="0 0 1600 600" preserveAspectRatio="none">
+          <defs>
+            <linearGradient id="auroraA" x1="0" x2="1">
+              <stop offset="0" stop-color="#2cf0c0" stop-opacity="0"/>
+              <stop offset=".38" stop-color="#3ff2c8" stop-opacity=".55"/>
+              <stop offset=".7" stop-color="#44c8ff" stop-opacity=".45"/>
+              <stop offset="1" stop-color="#a07bff" stop-opacity="0"/>
+            </linearGradient>
+            <filter id="auroraBlur" x="-10%" y="-50%" width="120%" height="200%"><feGaussianBlur stdDeviation="22"/></filter>
+          </defs>
+          <path class="aurora-band aurora-1" d="M-50 260 C300 120 600 330 900 180 C1150 60 1400 200 1650 120 L1650 200 C1400 280 1150 140 900 260 C600 400 300 200 -50 340Z" fill="url(#auroraA)" filter="url(#auroraBlur)"/>
+          <path class="aurora-band aurora-2" d="M-50 180 C400 60 700 240 1000 120 C1250 30 1450 140 1650 80 L1650 120 C1450 180 1250 80 1000 170 C700 280 400 120 -50 230Z" fill="url(#auroraA)" filter="url(#auroraBlur)" opacity=".6"/>
+        </svg>
+        <img class="hero-range" src="assets/arctic-range.svg" alt="" />
+        <div class="hero-sea"></div>
+        <div class="hero-floe">
+          <img class="hero-floe-img" src="assets/ice-floe.svg" alt="" />
+          <div id="heroPenguin" class="hero-penguin"></div>
+          <img class="hero-crate" src="assets/produce-crate.svg" alt="" />
+        </div>
+        <canvas id="snow" class="snow"></canvas>
+      </div>
+
+      <div class="hero-copy">
+        <p class="hero-kicker">PS 03 FreshRoute: AI-powered perishable recovery and distribution</p>
+        <h1 id="heroTitle" class="hero-title">Where every harvest outruns its expiry.</h1>
+        <p class="hero-lede">CASCADE SALVAGE decides where each batch of produce should go while it can still get there: premium retail, a rapid mandi or a processing plant. When a highway jams, it re-plans.</p>
+        <div class="hero-ctas">
+          <button type="button" id="heroRunBtn" class="btn btn-primary btn-lg">Run the plan in the Rescue Lab</button>
+          <a class="btn btn-ghost btn-lg" href="#story">Read the story</a>
+        </div>
+        <dl id="heroFacts" class="hero-facts" aria-live="polite">
+          <div><dt>Batches</dt><dd data-fact="batches">…</dd></div>
+          <div><dt>In stock</dt><dd data-fact="stock">…</dd></div>
+          <div><dt>Destinations</dt><dd data-fact="dests">…</dd></div>
+          <div><dt>Shelf life</dt><dd data-fact="shelf">…</dd></div>
+        </dl>
+        <p id="heroFactsSource" class="hero-source"></p>
+      </div>
+    </section>
+
+    <!-- Connection / data-source notice (filled by app.js) -->
+    <div class="wrap"><div id="sourceBanner" class="notice" role="region" aria-label="Connection status" hidden></div></div>
+
+    <!-- ============================ STORY ============================ -->
+    <section id="story" class="story" aria-labelledby="storyTitle">
+      <div class="wrap">
+        <header class="section-head">
+          <h2 id="storyTitle" class="display-2">A batch has hours, not days.</h2>
+          <p class="section-lede">Four steps through the problem, using the inventory the API is serving right now.</p>
+        </header>
+        <div class="story-grid">
+          <div class="story-visual" aria-hidden="true">
+            <div class="story-stage">
+              <img class="story-scene is-active" data-scene="0" src="assets/scene-hub.svg" alt="" />
+              <img class="story-scene" data-scene="1" src="assets/scene-reject.svg" alt="" />
+              <img class="story-scene" data-scene="2" src="assets/scene-cascade.svg" alt="" />
+              <img class="story-scene" data-scene="3" src="assets/scene-jam.svg" alt="" />
+              <div class="story-chip" id="storyChip"></div>
+            </div>
+            <ol class="story-dots">
+              <li data-dot="0" class="is-active"></li><li data-dot="1"></li><li data-dot="2"></li><li data-dot="3"></li>
+            </ol>
+          </div>
+          <div class="story-steps">
+            <article class="chapter" data-step="0" aria-labelledby="ch0">
+              <p class="chapter-num">1 of 4</p>
+              <h3 id="ch0" class="chapter-title">The clock starts at harvest</h3>
+              <p>Every batch at the Nashik aggregation hub arrives with a shelf life measured in hours. A destination only accepts it if enough of that time is left when the truck pulls in.</p>
+              <ul id="storyBatches" class="story-batches" aria-label="Batches with the least shelf life"></ul>
+            </article>
+            <article class="chapter" data-step="1" aria-labelledby="ch1">
+              <p class="chapter-num">2 of 4</p>
+              <h3 id="ch1" class="chapter-title">Conventional dispatch stops at the first no</h3>
+              <p>The engine's baseline copies common practice: offer stock to the highest-paying retail and mandi buyers, never to processors. Stock that is rejected on arrival, or that nobody takes, expires.</p>
+              <p id="storyBaseline" class="chapter-data"></p>
+            </article>
+            <article class="chapter" data-step="2" aria-labelledby="ch2">
+              <p class="chapter-num">3 of 4</p>
+              <h3 id="ch2" class="chapter-title">Cascade to the next feasible buyer</h3>
+              <p>CASCADE SALVAGE checks every destination a batch can still reach, then cascades through three tiers.</p>
+              <ul class="rules">
+                <li><span class="tier-key t1" aria-hidden="true"></span><span><strong>Premium retail</strong> takes grade A stock that still meets the store's minimum shelf life after the trip.</span></li>
+                <li><span class="tier-key t2" aria-hidden="true"></span><span><strong>Rapid mandi</strong> moves time-sensitive stock fast, with a 10% or 15% velocity discount when the buffer is tight.</span></li>
+                <li><span class="tier-key t3" aria-hidden="true"></span><span><strong>Processing plant</strong> is tried first for batches with 20 hours or less, turning near-expiry stock into pulp, puree or frozen product.</span></li>
+              </ul>
+              <p class="chapter-note">Each batch goes to one destination. Whatever that destination cannot take is counted as unallocated.</p>
+            </article>
+            <article class="chapter" data-step="3" aria-labelledby="ch3">
+              <p class="chapter-num">4 of 4</p>
+              <h3 id="ch3" class="chapter-title">When the highway jams, re-plan</h3>
+              <p>A jam adds hours to a route's transit time. Batches that were feasible may now arrive with too little shelf life left, so the engine runs again and finds the next option, or reports honestly that there is none.</p>
+              <a class="btn btn-secondary" href="#lab">Try a jam in the Rescue Lab</a>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================== COLD CHAIN ========================== -->
+    <section id="coldchain" class="coldchain" aria-labelledby="coldTitle">
+      <div class="wrap">
+        <header class="section-head section-head-split">
+          <div>
+            <h2 id="coldTitle" class="display-2">From boiling point to deep freeze</h2>
+            <p class="section-lede">The thermal path of a leafy-green batch rescued into processing: blanched near 100 °C, quenched in ice water, then frozen to −18 °C so it keeps for months instead of hours.</p>
+          </div>
+          <p class="badge-illustrative" role="note"><strong>Illustrative curve.</strong> CASCADE SALVAGE models shelf life in hours and has no temperature sensors. These are typical processing values, not measurements.</p>
+        </header>
+
+        <div class="thermo">
+          <img class="thermo-art" src="assets/scene-processing.svg" alt="Illustration of a processing line: blanching tank, ice-water quench tank and freezer tunnel." />
+          <figure class="thermo-figure">
+            <div id="thermoChart" class="thermo-chart"></div>
+            <figcaption class="sr-only">Illustrative product core temperature over time on a processing line, from about 30 °C on arrival, up to about 96 °C while blanching, down through the food-safety danger zone, a freezing plateau near −1 °C, and frozen storage at −18 °C.</figcaption>
+          </figure>
+          <div class="thermo-controls">
+            <label class="scrub" for="thermoScrub">
+              <span class="scrub-label">Move along the line</span>
+              <input id="thermoScrub" type="range" min="0" max="40" step="0.1" value="2.6" aria-describedby="thermoReadout" />
+            </label>
+            <output id="thermoReadout" class="thermo-readout" for="thermoScrub" aria-live="polite"></output>
+          </div>
+          <ol id="thermoPhases" class="phases"></ol>
+          <p class="sources">Values follow common practice: greens are blanched about 2 minutes in boiling water and chilled in ice-cold water (<a href="https://extension.usu.edu/nutrition/research/spinach.pdf" target="_blank" rel="noopener">USU Extension</a>); the food-safety danger zone is 40–140 °F, about 4–60 °C (<a href="https://www.fsis.usda.gov/news-events/news-press-releases/usda-urges-consumers-keep-clear-danger-zone-summer" target="_blank" rel="noopener">USDA FSIS</a>); −18 °C (0 °F) is the usual frozen-storage temperature.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================== RESCUE LAB ========================== -->
+    <section id="lab" class="lab" aria-labelledby="labTitle" tabindex="-1">
+      <div class="wrap">
+        <header class="section-head section-head-split">
+          <div>
+            <h2 id="labTitle" class="display-2">The Rescue Lab</h2>
+            <p class="section-lede">Run the plan, jam a highway and compare what the engine returns. Every number in this lab comes from an API response.</p>
+          </div>
+          <span id="labSource" class="source-tag" data-source="none">No results yet</span>
+        </header>
+
+        <div class="lab-grid">
+          <!-- Console -->
+          <div class="console" aria-label="Lab controls">
+            <div class="console-step" data-step-state="ready" id="stepPlan">
+              <div class="console-step-head">
+                <span class="step-num" aria-hidden="true">1</span>
+                <div>
+                  <h3 class="console-title">Plan</h3>
+                  <p class="console-sub">Allocate every batch on normal routes.</p>
+                </div>
+              </div>
+              <button type="button" id="runPlanBtn" class="btn btn-primary btn-block" data-busy="Running the cascade…">
+                <span class="spinner" aria-hidden="true"></span><span class="btn-text">Run cascade plan</span>
+              </button>
+              <p id="planMeta" class="console-meta"></p>
+            </div>
+
+            <div class="console-step" id="stepJam">
+              <div class="console-step-head">
+                <span class="step-num" aria-hidden="true">2</span>
+                <div>
+                  <h3 class="console-title">Disrupt</h3>
+                  <p class="console-sub">Add a highway delay and re-plan.</p>
+                </div>
+              </div>
+              <fieldset class="field">
+                <legend>Corridor</legend>
+                <div id="corridorList" class="radio-list"></div>
+              </fieldset>
+              <fieldset class="field">
+                <legend>Delay</legend>
+                <div id="delayList" class="segmented" role="radiogroup" aria-label="Delay in hours"></div>
+              </fieldset>
+              <div class="presets" aria-label="Quick scenarios">
+                <span class="presets-label">Try</span>
+                <button type="button" class="chip-btn" data-preset="ALL|6">6 h on every corridor</button>
+                <button type="button" class="chip-btn" data-preset="D1|8">8 h on the Mumbai route</button>
+                <button type="button" class="chip-btn" data-preset="D4|12">12 h on the processing route</button>
+              </div>
+              <button type="button" id="runJamBtn" class="btn btn-jam btn-block" data-busy="Re-planning around the jam…">
+                <span class="spinner" aria-hidden="true"></span><span class="btn-text" id="runJamLabel">Simulate jam</span>
+              </button>
+              <details class="request-peek">
+                <summary>Request this sends</summary>
+                <pre id="jamRequest" class="code"></pre>
+              </details>
+              <p class="console-note">The API applies the delay to the selected route's transit time. It only models delays, so other disruption types are not offered here.</p>
+            </div>
+
+            <button type="button" id="resetBtn" class="btn btn-ghost btn-block">Reset the lab</button>
+          </div>
+
+          <!-- Stage -->
+          <div class="stage">
+            <ol id="timeline" class="timeline" aria-label="Scenarios"></ol>
+
+            <div class="compare-bar">
+              <div class="compare-pairs" role="tablist" aria-label="Comparison" id="pairTabs"></div>
+              <div class="compare-pick">
+                <label>Compare <select id="pickA" aria-label="First scenario"></select></label>
+                <label>with <select id="pickB" aria-label="Second scenario"></select></label>
+                <div class="segmented segmented-sm" role="radiogroup" aria-label="Comparison view" id="compareView">
+                  <label><input type="radio" name="cmpView" value="side" checked /><span>Side by side</span></label>
+                  <label><input type="radio" name="cmpView" value="diff" /><span>Difference</span></label>
+                </div>
+              </div>
+            </div>
+
+            <div id="compareHeadline" class="compare-headline" aria-live="polite"></div>
+            <div id="compareChart" class="compare-chart"></div>
+            <div id="changes" class="changes"></div>
+            <div id="integrity" class="integrity" hidden></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================ STUDIO ============================ -->
+    <section id="studio" class="studio" aria-labelledby="studioTitle">
+      <div class="wrap">
+        <header class="section-head section-head-split">
+          <div>
+            <h2 id="studioTitle" class="display-2">Where the stock goes</h2>
+            <p class="section-lede">Four views of one plan. Pick the plan or the re-plan; every chart, the network and the explorer follow.</p>
+          </div>
+          <div class="lens" data-lens-group>
+            <span class="lens-label">Showing</span>
+            <div class="segmented" role="radiogroup" aria-label="Which plan to show">
+              <label><input type="radio" name="lens-studio" value="plan" checked /><span>Cascade plan</span></label>
+              <label><input type="radio" name="lens-studio" value="replan" disabled /><span>Re-plan under jam</span></label>
+            </div>
+          </div>
+        </header>
+
+        <div class="studio-grid">
+          <article class="viz viz-donut" aria-labelledby="vizTierTitle" data-viz="tiers">
+            <header class="viz-head">
+              <div>
+                <h3 id="vizTierTitle" class="viz-title">How the stock splits across tiers</h3>
+                <p class="viz-sub" id="vizTierSub">Kilograms, summed from the returned allocations</p>
+              </div>
+              <div class="viz-tools">
+                <div class="segmented segmented-sm" role="radiogroup" aria-label="Measure">
+                  <label><input type="radio" name="tierMeasure" value="kg" checked /><span>Kilograms</span></label>
+                  <label><input type="radio" name="tierMeasure" value="inr" /><span>Contribution</span></label>
+                </div>
+                <button type="button" class="icon-btn" data-expand="tiers" aria-label="Expand this chart"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></button>
+              </div>
+            </header>
+            <div class="viz-body" id="vizTiers"></div>
+            <ul class="legend" id="legendTiers" aria-label="Tiers. Select to hide or show."></ul>
+            <button type="button" class="table-toggle" data-table="tiers" aria-expanded="false">Show data table</button>
+            <div class="viz-table" id="tableTiers" hidden></div>
+          </article>
+
+          <article class="viz viz-dest" aria-labelledby="vizDestTitle" data-viz="dests">
+            <header class="viz-head">
+              <div>
+                <h3 id="vizDestTitle" class="viz-title">How full each destination gets</h3>
+                <p class="viz-sub">Allocated kilograms against each buyer's demand</p>
+              </div>
+              <div class="viz-tools">
+                <label class="select-sm">Sort by
+                  <select id="destSort">
+                    <option value="fill">Fill rate</option>
+                    <option value="kg">Allocated kg</option>
+                    <option value="inr">Contribution</option>
+                    <option value="demand">Demand</option>
+                  </select>
+                </label>
+                <button type="button" class="icon-btn" data-expand="dests" aria-label="Expand this chart"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></button>
+              </div>
+            </header>
+            <div class="viz-body" id="vizDests"></div>
+            <button type="button" class="table-toggle" data-table="dests" aria-expanded="false">Show data table</button>
+            <div class="viz-table" id="tableDests" hidden></div>
+          </article>
+
+          <article class="viz viz-runway" aria-labelledby="vizRunTitle" data-viz="runway">
+            <header class="viz-head">
+              <div>
+                <h3 id="vizRunTitle" class="viz-title">Shelf-life runway</h3>
+                <p class="viz-sub">Each batch's hours, split into the trip, the buyer's minimum and the spare buffer</p>
+              </div>
+              <div class="viz-tools">
+                <button type="button" class="icon-btn" data-expand="runway" aria-label="Expand this chart"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></button>
+              </div>
+            </header>
+            <div class="viz-body" id="vizRunway"></div>
+            <ul class="legend legend-static" aria-label="Legend">
+              <li><span class="swatch sw-trip"></span>Trip</li>
+              <li><span class="swatch sw-min"></span>Buyer's minimum</li>
+              <li><span class="swatch sw-buffer"></span>Spare buffer</li>
+              <li><span class="swatch sw-lost"></span>No feasible buyer</li>
+            </ul>
+            <button type="button" class="table-toggle" data-table="runway" aria-expanded="false">Show data table</button>
+            <div class="viz-table" id="tableRunway" hidden></div>
+          </article>
+
+          <article class="viz viz-routes" aria-labelledby="vizRouteTitle" data-viz="routes">
+            <header class="viz-head">
+              <div>
+                <h3 id="vizRouteTitle" class="viz-title">Route comparison</h3>
+                <p class="viz-sub" id="vizRouteSub">From the route data, with any simulated delay</p>
+              </div>
+              <div class="viz-tools">
+                <div class="segmented segmented-sm" role="radiogroup" aria-label="Route measure">
+                  <label><input type="radio" name="routeMeasure" value="hrs" checked /><span>Hours</span></label>
+                  <label><input type="radio" name="routeMeasure" value="km" /><span>Km</span></label>
+                  <label><input type="radio" name="routeMeasure" value="cost" /><span>₹/kg</span></label>
+                </div>
+                <button type="button" class="icon-btn" data-expand="routes" aria-label="Expand this chart"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></button>
+              </div>
+            </header>
+            <div class="viz-body" id="vizRoutes"></div>
+            <button type="button" class="table-toggle" data-table="routes" aria-expanded="false">Show data table</button>
+            <div class="viz-table" id="tableRoutes" hidden></div>
+          </article>
+        </div>
+        <div class="studio-foot">
+          <p id="studioSource" class="source-note"></p>
+          <button type="button" id="studioReset" class="btn btn-ghost btn-sm">Reset chart settings</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================ NETWORK ============================ -->
+    <section id="network" class="network" aria-labelledby="netTitle">
+      <div class="wrap">
+        <header class="section-head section-head-split">
+          <div>
+            <h2 id="netTitle" class="display-2">The salvage network</h2>
+            <p class="section-lede">Batches flow through the Nashik hub to the buyers in the plan. Line width is allocated kilograms. Select a batch, route or buyer for details.</p>
+          </div>
+          <div class="lens" data-lens-group>
+            <span class="lens-label">Showing</span>
+            <div class="segmented" role="radiogroup" aria-label="Which plan to show">
+              <label><input type="radio" name="lens-network" value="plan" checked /><span>Cascade plan</span></label>
+              <label><input type="radio" name="lens-network" value="replan" disabled /><span>Re-plan under jam</span></label>
+            </div>
+          </div>
+        </header>
+        <div class="net-grid">
+          <div class="net-canvas">
+            <div id="netChart" class="net-chart"></div>
+            <ul class="legend legend-static net-legend">
+              <li><span class="swatch sw-t1"></span>Premium retail</li>
+              <li><span class="swatch sw-t2"></span>Rapid mandi</li>
+              <li><span class="swatch sw-t3"></span>Processing plant</li>
+              <li><span class="swatch sw-lost"></span>Unallocated</li>
+              <li><span class="swatch sw-jam"></span>Simulated delay</li>
+            </ul>
+            <p class="net-note">Schematic, not a map: the data has no coordinates. Moving dots are decoration showing the direction of flow, not live vehicle tracking.</p>
+          </div>
+          <aside id="netDetail" class="net-detail" aria-live="polite">
+            <p class="net-detail-empty">Select a node or a route.</p>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================ EXPLORER ============================ -->
+    <section id="explorer" class="explorer" aria-labelledby="exTitle">
+      <div class="wrap">
+        <header class="section-head section-head-split">
+          <div>
+            <h2 id="exTitle" class="display-2">Explorer</h2>
+            <p class="section-lede">Every record the API returned. Search, sort and open any row to see how it connects to the rest.</p>
+          </div>
+          <div class="lens" data-lens-group>
+            <span class="lens-label">Showing</span>
+            <div class="segmented" role="radiogroup" aria-label="Which plan to show">
+              <label><input type="radio" name="lens-explorer" value="plan" checked /><span>Cascade plan</span></label>
+              <label><input type="radio" name="lens-explorer" value="replan" disabled /><span>Re-plan under jam</span></label>
+            </div>
+          </div>
+        </header>
+
+        <div class="ex-tabs" role="tablist" aria-label="Record type" id="exTabs">
+          <button type="button" role="tab" id="tab-alloc" aria-controls="exPanel" aria-selected="true" data-tab="alloc">Allocations <span class="tab-count" data-count="alloc"></span></button>
+          <button type="button" role="tab" id="tab-batch" aria-controls="exPanel" aria-selected="false" tabindex="-1" data-tab="batch">Batches <span class="tab-count" data-count="batch"></span></button>
+          <button type="button" role="tab" id="tab-dest" aria-controls="exPanel" aria-selected="false" tabindex="-1" data-tab="dest">Destinations <span class="tab-count" data-count="dest"></span></button>
+          <button type="button" role="tab" id="tab-route" aria-controls="exPanel" aria-selected="false" tabindex="-1" data-tab="route">Routes <span class="tab-count" data-count="route"></span></button>
+        </div>
+        <div class="ex-tools">
+          <label class="search">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+            <span class="sr-only">Search</span>
+            <input id="exSearch" type="search" placeholder="Search IDs, produce or buyers" autocomplete="off" spellcheck="false" />
+            <kbd aria-hidden="true">/</kbd>
+          </label>
+          <label class="select-sm"><span class="sr-only">Tier</span><select id="exTier"><option value="">All tiers</option></select></label>
+          <label class="select-sm"><span class="sr-only">Status</span><select id="exStatus"><option value="">All statuses</option></select></label>
+          <button type="button" id="exClear" class="btn btn-ghost btn-sm">Clear</button>
+        </div>
+        <div id="exPanel" class="ex-panel" role="tabpanel" aria-labelledby="tab-alloc">
+          <p id="exCount" class="ex-count" aria-live="polite"></p>
+          <div class="table-wrap" tabindex="0" role="region" aria-label="Records table">
+            <table class="data-table" id="exTable"><thead></thead><tbody></tbody></table>
+          </div>
+          <div id="exEmpty" class="empty-state" hidden></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================ LEDGER ============================ -->
+    <section id="ledger" class="ledger" aria-labelledby="ledgerTitle">
+      <div class="wrap">
+        <header class="section-head">
+          <h2 id="ledgerTitle" class="display-2">Impact ledger</h2>
+          <p class="section-lede">What the model says the cascade changes, with the arithmetic shown. These are scenario results on the sample data, not field measurements.</p>
+        </header>
+        <div id="ledgerBody" class="ledger-body"></div>
+        <div class="ledger-honesty">
+          <div>
+            <h3 class="ledger-h">What this prototype does not claim</h3>
+            <ul class="plain-list">
+              <li>No carbon or emissions figures: the data has no fuel or vehicle-load fields.</li>
+              <li>No measured food waste: spoilage here is stock the model cannot place, not a physical count.</li>
+              <li>No accounting profit: the engine's <code>net_profit</code> field is revenue minus transport, so this page calls it contribution after transport.</li>
+              <li>No live tracking or temperature telemetry: routes have a status text field only.</li>
+              <li>Vehicle capacity is not checked: routes list a vehicle type but no numeric capacity.</li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="ledger-h">Context from outside the model</h3>
+            <p>A post-harvest loss study commissioned by India's Ministry of Food Processing Industries and run by NABCONS (reference years 2020–22) covered 54 agricultural commodities. It put total tomato loss at 11.62% (<a href="https://www.freshplaza.com/asia/article/9756104/india-reports-high-guava-and-tomato-losses/" target="_blank" rel="noopener">FreshPlaza</a>) and annual losses at 7.36 million tonnes of fruit and 11.97 million tonnes of vegetables (<a href="https://eparlib.sansad.in/bitstream/123456789/3017416/1/AU1976_37fxUw.pdf" target="_blank" rel="noopener">Lok Sabha reply</a>). These figures describe the national problem; they are not outputs of this model.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap footer-inner">
+      <p><strong>CASCADE SALVAGE</strong>, a hackathon prototype for PS 03 FreshRoute (Wild Bugs Devfolio Hackathon).</p>
+      <p class="fine">Allocations and metrics come from the project's optimizer through its FastAPI backend. Anything labelled demo is a saved snapshot of that same engine, not a live response. Artwork is original SVG made for this project.</p>
+    </div>
+  </footer>
+
+  <!-- ============================ OVERLAYS ============================ -->
+  <div id="buddy" class="buddy" aria-hidden="true">
+    <div id="buddyBubble" class="buddy-bubble" hidden></div>
+    <div id="buddyPenguin" class="buddy-penguin"></div>
+  </div>
+  <button type="button" id="buddyToggle" class="buddy-toggle" aria-pressed="true" title="Hide the penguin" aria-label="Hide the penguin">×</button>
+
+  <div id="drawerBackdrop" class="backdrop" hidden></div>
+  <aside id="drawer" class="drawer" role="dialog" aria-modal="true" aria-labelledby="drawerTitle" hidden>
+    <div class="drawer-grip" aria-hidden="true"></div>
+    <header class="drawer-head">
+      <div>
+        <p id="drawerKind" class="drawer-kind"></p>
+        <h2 id="drawerTitle" class="drawer-title"></h2>
+        <p id="drawerSub" class="drawer-sub"></p>
+      </div>
+      <button type="button" id="drawerClose" class="icon-btn" aria-label="Close details">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
+    </header>
+    <div id="drawerBody" class="drawer-body"></div>
+  </aside>
+
+  <div id="modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" hidden>
+    <div class="modal-card">
+      <header class="modal-head">
+        <h2 id="modalTitle" class="modal-title"></h2>
+        <button type="button" id="modalClose" class="icon-btn" aria-label="Close expanded chart">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
+        </button>
+      </header>
+      <div id="modalBody" class="modal-body"></div>
+    </div>
+  </div>
+
+  <div id="tooltip" class="tooltip" role="tooltip" hidden></div>
+  <div id="toasts" class="toasts" aria-live="polite"></div>
+
+  <!-- Demo snapshots load first (only used in demo mode), then the app. No other scripts or CDNs. -->
+  <script src="demo-snapshots.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
