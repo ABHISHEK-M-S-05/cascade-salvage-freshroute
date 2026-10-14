@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 480">
+  <!-- CASCADE SALVAGE artwork: three ice terraces, premium retail, rapid mandi, processing (original SVG) -->
+  <defs>
+    <radialGradient id="disc" cx=".5" cy=".45" r=".6"><stop offset="0" stop-color="#1a3a66"/><stop offset="1" stop-color="#0a1830"/></radialGradient>
+    <linearGradient id="ice" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9fe6fb"/><stop offset="1" stop-color="#2a7fbd"/></linearGradient>
+    <linearGradient id="snow" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#d4ebf8"/></linearGradient>
+    <linearGradient id="wood" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e2a464"/><stop offset="1" stop-color="#a8652f"/></linearGradient>
+    <linearGradient id="t1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d2e5ff"/><stop offset="1" stop-color="#b3d4ff"/></linearGradient>
+    <linearGradient id="plant" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#cbbcff"/><stop offset="1" stop-color="#8a6cf0"/></linearGradient>
+    <g id="box">
+      <rect width="30" height="20" rx="2" fill="url(#wood)"/>
+      <circle cx="8" cy="-2" r="5.5" fill="#f2402f"/><circle cx="21" cy="-3" r="6" fill="#ff5a45"/>
+    </g>
+  </defs>
+  <circle cx="320" cy="250" r="226" fill="url(#disc)"/>
+  <circle cx="320" cy="250" r="226" fill="none" stroke="#b3d4ff" stroke-opacity=".2" stroke-width="2"/>
+
+  <!-- terrace 1 (top-left) -->
+  <path d="M96 196 L300 196 L300 236 L96 236Z" fill="url(#ice)"/>
+  <path d="M90 190 C150 182 240 182 306 190 L300 200 L96 200Z" fill="url(#snow)"/>
+  <!-- premium store -->
+  <rect x="120" y="120" width="120" height="72" rx="4" fill="url(#t1)"/>
+  <rect x="114" y="110" width="132" height="16" rx="4" fill="#7b95ff"/>
+  <rect x="132" y="138" width="44" height="54" rx="2" fill="#3d7bff" opacity=".85"/>
+  <rect x="186" y="138" width="40" height="30" rx="2" fill="#3d7bff" opacity=".85"/>
+  <path d="M140 146 l16 26" stroke="#d6f3ff" stroke-width="4" stroke-linecap="round" opacity=".5"/>
+  <circle cx="270" cy="150" r="14" fill="#b3d4ff"/><text x="270" y="155" font-family="sans-serif" font-size="15" font-weight="700" text-anchor="middle" fill="#0b1a33">1</text>
+
+  <!-- chute 1 -> 2 -->
+  <path d="M300 214 C340 214 350 256 380 266" fill="none" stroke="#cfe6f6" stroke-width="10" stroke-linecap="round" opacity=".35"/>
+  <use href="#box" transform="translate(318 222) rotate(18)"/>
+
+  <!-- terrace 2 (middle) -->
+  <path d="M250 290 L470 290 L470 328 L250 328Z" fill="url(#ice)"/>
+  <path d="M244 284 C310 276 400 276 476 284 L470 294 L250 294Z" fill="url(#snow)"/>
+  <!-- mandi stall -->
+  <rect x="290" y="226" width="130" height="58" rx="3" fill="#e9eef8"/>
+  <path d="M280 222 h150 l-10 20 h-130Z" fill="#7b95ff"/>
+  <path d="M296 222 l-6 20 M322 222 l-3 20 M348 222 l-1 20 M374 222 l1 20 M400 222 l3 20" stroke="#ffffff" stroke-width="9" opacity=".9"/>
+  <rect x="300" y="256" width="110" height="22" rx="2" fill="url(#wood)"/>
+  <circle cx="318" cy="254" r="7" fill="#ffd23f"/><circle cx="334" cy="254" r="7" fill="#b5306a"/><circle cx="350" cy="254" r="7" fill="#f2402f"/><circle cx="366" cy="254" r="7" fill="#34c26a"/><circle cx="382" cy="254" r="7" fill="#f2402f"/><circle cx="398" cy="254" r="7" fill="#ffd23f"/>
+  <circle cx="446" cy="250" r="14" fill="#7b95ff"/><text x="446" y="255" font-family="sans-serif" font-size="15" font-weight="700" text-anchor="middle" fill="#0b1a33">2</text>
+
+  <!-- chute 2 -> 3 -->
+  <path d="M470 310 C504 312 512 348 532 360" fill="none" stroke="#cfe6f6" stroke-width="10" stroke-linecap="round" opacity=".35"/>
+  <use href="#box" transform="translate(486 318) rotate(24)"/>
+
+  <!-- terrace 3 (bottom) -->
+  <path d="M330 384 C390 376 520 376 560 384 L556 410 C500 424 390 424 334 410Z" fill="url(#ice)"/>
+  <path d="M326 380 C400 370 500 370 564 380 L560 390 L330 390Z" fill="url(#snow)"/>
+  <!-- processing plant -->
+  <rect x="380" y="320" width="120" height="62" rx="3" fill="url(#plant)"/>
+  <path d="M380 320 l24 -18 l0 18 l24 -18 l0 18 l24 -18 l0 18" fill="#a98bff"/>
+  <rect x="470" y="282" width="16" height="40" fill="#7a5cf0"/>
+  <path d="M478 278 c-10 -10 6 -16 -2 -28 c12 6 14 16 6 26" fill="#e9e3ff" opacity=".8"/>
+  <rect x="394" y="344" width="22" height="22" rx="2" fill="#2a2366" opacity=".6"/>
+  <rect x="426" y="344" width="22" height="22" rx="2" fill="#2a2366" opacity=".6"/>
+  <circle cx="516" cy="350" r="12" fill="#e7e1ff"/><circle cx="516" cy="350" r="5" fill="#7a5cf0"/>
+  <circle cx="356" cy="348" r="14" fill="#7a5cf0"/><text x="356" y="353" font-family="sans-serif" font-size="15" font-weight="700" text-anchor="middle" fill="#ffffff">3</text>
+
+  <!-- incoming batch -->
+  <g transform="translate(120 252)">
+    <use href="#box"/>
+    <path d="M40 10 h40" stroke="#5ee3f5" stroke-width="4" stroke-dasharray="6 6" stroke-linecap="round"/>
+  </g>
+  <g fill="#ffffff" opacity=".65"><circle cx="150" cy="320" r="2.5"/><circle cx="520" cy="160" r="2"/><circle cx="430" cy="120" r="2.5"/><circle cx="210" cy="380" r="2"/></g>
+</svg>

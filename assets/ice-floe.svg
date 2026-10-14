@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 340" preserveAspectRatio="xMidYMax meet">
+  <!-- CASCADE SALVAGE artwork: ice floe with stacked ice blocks (original, hand-built SVG) -->
+  <defs>
+    <linearGradient id="top" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f6fbff"/><stop offset="1" stop-color="#cfe5f4"/>
+    </linearGradient>
+    <linearGradient id="front" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#7fd6f0"/><stop offset=".55" stop-color="#2e8fc4"/><stop offset="1" stop-color="#123f78"/>
+    </linearGradient>
+    <linearGradient id="blockTop" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ecfbff"/><stop offset="1" stop-color="#b6e6f7"/>
+    </linearGradient>
+    <linearGradient id="blockL" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#9ee6fb"/><stop offset="1" stop-color="#4fb6e0"/>
+    </linearGradient>
+    <linearGradient id="blockR" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#4aa9db"/><stop offset="1" stop-color="#1f6aa6"/>
+    </linearGradient>
+    <linearGradient id="water" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0d2a52"/><stop offset="1" stop-color="#050f22"/>
+    </linearGradient>
+    <g id="cube">
+      <path d="M0 18 L40 0 L80 18 L40 36Z" fill="url(#blockTop)"/>
+      <path d="M0 18 L40 36 L40 84 L0 66Z" fill="url(#blockL)"/>
+      <path d="M80 18 L40 36 L40 84 L80 66Z" fill="url(#blockR)"/>
+      <path d="M8 26 L22 32 L22 50" fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round" opacity=".7"/>
+      <path d="M50 44 L70 36" stroke="#d5f4ff" stroke-width="2" stroke-linecap="round" opacity=".5"/>
+    </g>
+  </defs>
+
+  <!-- water + reflections -->
+  <rect y="250" width="1000" height="90" fill="url(#water)"/>
+  <path d="M120 286h120M300 300h80M600 292h160M820 306h90M60 318h70" stroke="#5fcbe9" stroke-width="2.5" stroke-linecap="round" opacity=".35"/>
+
+  <!-- floe front face -->
+  <path d="M60 170 L940 160 L910 252 L820 268 L700 258 L560 272 L420 262 L300 274 L170 262 L90 250Z" fill="url(#front)"/>
+  <path d="M200 176 L230 262 M380 172 L360 266 M540 170 L570 270 M720 166 L700 258 M860 162 L880 262" stroke="#0f3b70" stroke-width="3" opacity=".35"/>
+  <path d="M300 178 L320 230 L300 270 M640 170 L620 220 L650 265" stroke="#bdf0ff" stroke-width="2" fill="none" opacity=".45"/>
+  <!-- icicles -->
+  <path d="M150 258 l8 26 l8 -24Z M330 272 l6 22 l6 -21Z M610 268 l7 28 l7 -27Z M790 266 l6 20 l6 -19Z" fill="#a8e8fb" opacity=".85"/>
+  <!-- floe top -->
+  <path d="M40 160 C120 128 260 122 400 128 C540 134 700 120 820 126 C900 130 950 142 960 160 L940 172 L60 180Z" fill="url(#top)"/>
+  <path d="M90 150 C200 136 320 136 420 142" stroke="#ffffff" stroke-width="4" stroke-linecap="round" fill="none" opacity=".9"/>
+
+  <!-- stacked ice blocks, left -->
+  <use href="#cube" transform="translate(70 70)"/>
+  <use href="#cube" transform="translate(140 96) scale(.9)"/>
+  <use href="#cube" transform="translate(98 20) scale(.85)"/>
+  <!-- small blocks, right -->
+  <use href="#cube" transform="translate(820 92) scale(.75)"/>
+  <use href="#cube" transform="translate(872 112) scale(.55)"/>
+  <!-- snow drifts -->
+  <path d="M60 172 C110 150 170 150 220 170Z M760 170 C800 154 850 154 900 168Z" fill="#ffffff" opacity=".9"/>
+</svg>

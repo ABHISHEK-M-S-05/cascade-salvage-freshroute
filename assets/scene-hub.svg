@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 480">
+  <!-- CASCADE SALVAGE artwork: Nashik aggregation hub, the clock starts at harvest (original SVG) -->
+  <defs>
+    <radialGradient id="disc" cx=".5" cy=".45" r=".6"><stop offset="0" stop-color="#1a3a66"/><stop offset="1" stop-color="#0a1830"/></radialGradient>
+    <linearGradient id="wall" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e8f2fa"/><stop offset="1" stop-color="#b9cfe2"/></linearGradient>
+    <linearGradient id="wallSide" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9db7cf"/><stop offset="1" stop-color="#6f8cab"/></linearGradient>
+    <linearGradient id="door" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2ccbe6"/><stop offset="1" stop-color="#1477a6"/></linearGradient>
+    <linearGradient id="wood" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e2a464"/><stop offset="1" stop-color="#a8652f"/></linearGradient>
+    <linearGradient id="ground" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e6f3fb"/><stop offset="1" stop-color="#a9cbe3"/></linearGradient>
+    <g id="crate">
+      <rect width="54" height="34" rx="3" fill="url(#wood)"/>
+      <path d="M0 12h54M0 23h54" stroke="#8a4f22" stroke-width="2" opacity=".5"/>
+      <circle cx="12" cy="-3" r="8" fill="#f2402f"/><circle cx="27" cy="-5" r="8.5" fill="#ff5a45"/><circle cx="42" cy="-3" r="8" fill="#e8382a"/>
+      <path d="M27 -13 l3 -4 l1 4 l4 0 l-4 3Z" fill="#2fa451"/>
+    </g>
+  </defs>
+  <circle cx="320" cy="250" r="226" fill="url(#disc)"/>
+  <circle cx="320" cy="250" r="226" fill="none" stroke="#5ee3f5" stroke-opacity=".18" stroke-width="2"/>
+  <!-- ground -->
+  <path d="M110 372 C200 350 440 350 530 372 C520 412 430 440 320 440 C210 440 120 412 110 372Z" fill="url(#ground)"/>
+
+  <!-- shelf-life clock -->
+  <g transform="translate(320 112)">
+    <circle r="54" fill="#0b1a33" stroke="#5ee3f5" stroke-width="4"/>
+    <circle r="54" fill="none" stroke="#ffbe55" stroke-width="8" stroke-dasharray="250 400" transform="rotate(-90)" stroke-linecap="round"/>
+    <g stroke="#cfe6f6" stroke-width="3" stroke-linecap="round">
+      <path d="M0 -42v8M42 0h-8M0 42v-8M-42 0h8"/>
+    </g>
+    <path d="M0 0 L0 -32" stroke="#eaf6ff" stroke-width="5" stroke-linecap="round"/>
+    <path d="M0 0 L22 10" stroke="#ff7461" stroke-width="4" stroke-linecap="round"/>
+    <circle r="6" fill="#eaf6ff"/>
+    <path d="M-12 -62h24" stroke="#5ee3f5" stroke-width="7" stroke-linecap="round"/>
+  </g>
+
+  <!-- warehouse -->
+  <path d="M150 250 L320 196 L490 250 L490 372 L150 372Z" fill="url(#wall)"/>
+  <path d="M490 250 L530 264 L530 366 L490 372Z" fill="url(#wallSide)"/>
+  <path d="M140 254 L320 192 L500 254 L540 266 L524 270 L320 204 L148 262Z" fill="#f6fbff"/>
+  <path d="M136 256 L320 188 L506 252" fill="none" stroke="#3a5f8f" stroke-width="6" stroke-linejoin="round"/>
+  <!-- snow on roof -->
+  <path d="M150 252 C190 232 240 224 280 210 C300 204 320 196 330 198 C360 206 420 226 488 246 L482 252 C420 234 360 216 320 206 C270 222 200 244 156 260Z" fill="#ffffff"/>
+  <!-- cold room door -->
+  <rect x="268" y="286" width="104" height="86" rx="4" fill="url(#door)"/>
+  <path d="M268 300h104M268 314h104M268 328h104M268 342h104M268 356h104" stroke="#0e5b86" stroke-width="2" opacity=".55"/>
+  <g transform="translate(320 270)" stroke="#eaf6ff" stroke-width="2.5" stroke-linecap="round">
+    <path d="M0 -10v20M-9 -5l18 10M-9 5l18 -10"/>
+  </g>
+  <rect x="180" y="290" width="58" height="34" rx="3" fill="#9fd8ee" opacity=".55"/>
+  <rect x="402" y="290" width="58" height="34" rx="3" fill="#9fd8ee" opacity=".55"/>
+  <!-- crates on pallet -->
+  <rect x="150" y="380" width="128" height="8" rx="2" fill="#7a4a22"/>
+  <use href="#crate" transform="translate(156 346)"/>
+  <use href="#crate" transform="translate(216 346)"/>
+  <use href="#crate" transform="translate(186 304)"/>
+  <!-- onion + banana crates right -->
+  <g transform="translate(392 346)">
+    <rect width="58" height="34" rx="3" fill="url(#wood)"/>
+    <path d="M0 12h58M0 23h58" stroke="#8a4f22" stroke-width="2" opacity=".5"/>
+    <path d="M12 -12 C16 -6 22 -4 22 2 C22 6 18 8 12 8 C6 8 2 6 2 2 C2 -4 8 -6 12 -12Z M34 -14 C38 -8 46 -5 46 2 C46 6 40 8 34 8 C28 8 22 6 22 2 C22 -5 30 -8 34 -14Z" fill="#b5306a"/>
+  </g>
+  <g transform="translate(456 352)">
+    <rect width="50" height="28" rx="3" fill="url(#wood)"/>
+    <path d="M4 -2 C18 -10 34 -10 46 -2 C34 -6 18 -6 4 -2Z M2 4 C16 -4 34 -4 48 4 C34 0 16 0 2 4Z" fill="#ffd23f"/>
+  </g>
+  <!-- falling snow -->
+  <g fill="#ffffff" opacity=".7">
+    <circle cx="170" cy="160" r="3"/><circle cx="470" cy="150" r="2.5"/><circle cx="520" cy="210" r="2"/><circle cx="130" cy="220" r="2"/><circle cx="420" cy="90" r="2"/><circle cx="220" cy="100" r="2.5"/>
+  </g>
+</svg>
