@@ -125,7 +125,7 @@ code { color: var(--text-2); }
 .topbar-inner { height: var(--header-h); max-width: 1440px; margin: 0 auto; padding: 0 24px; display: flex; align-items: center; gap: 24px; }
 .brand { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; color: var(--text); flex-shrink: 0; }
 .brand:hover { color: var(--text); }
-.brand-mark { width: 34px; height: 34px; border-radius: 10px; box-shadow: 0 0 0 1px var(--line-2); }
+.brand-mark { width: 44px; height: 44px; border-radius: 50%; object-fit: contain; box-shadow: 0 0 0 1px var(--line-2); }
 .brand-name { font-family: var(--font-display); font-weight: 800; font-size: 17px; letter-spacing: -0.01em; }
 .nav { display: flex; gap: 2px; margin-left: auto; }
 .nav a {
