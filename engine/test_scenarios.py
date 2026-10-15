@@ -4,7 +4,13 @@ Verifies that Cascade Salvage can dynamically adapt to any new situation.
 """
 
 import json
+import sys
 import unittest
+from pathlib import Path
+
+# Ensure repository root is on path for direct execution
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+
 from engine.optimizer import CascadeOptimizer, run_optimization, simulate_disruption
 
 
