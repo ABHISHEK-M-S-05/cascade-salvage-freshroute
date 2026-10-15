@@ -342,8 +342,16 @@
                 <span class="step-num" aria-hidden="true">1</span>
                 <div>
                   <h3 class="console-title">Plan</h3>
-                  <p class="console-sub">Allocate every batch on normal routes.</p>
+                  <p class="console-sub">Allocate every batch on normal or scenario routes.</p>
                 </div>
+              </div>
+              <div style="margin-bottom: 0.85rem;">
+                <label for="scenarioSelect" style="font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.05em; color: #9fb3c8; font-weight: 600; display: block; margin-bottom: 0.35rem;">Operational Scenario</label>
+                <select id="scenarioSelect" class="btn btn-secondary btn-block" style="text-align: left; padding: 0.6rem 0.85rem; background: #161f2e; color: #e2e8f0; border: 1px solid rgba(160,200,255,0.25); border-radius: 6px; cursor: pointer; font-size: 0.88rem;">
+                  <option value="default">☀️ Standard Operations (13,000 kg Normal)</option>
+                  <option value="rain_delay">🌧️ Monsoon Rain Delay (+14h Flood & Decay)</option>
+                  <option value="harvest_glut">🌾 Bumper Harvest Surplus (19,000 kg)</option>
+                </select>
               </div>
               <button type="button" id="runPlanBtn" class="btn btn-primary btn-block" data-busy="Running the cascade…">
                 <span class="spinner" aria-hidden="true"></span><span class="btn-text">Run cascade plan</span>
@@ -356,7 +364,7 @@
                 <span class="step-num" aria-hidden="true">2</span>
                 <div>
                   <h3 class="console-title">Disrupt</h3>
-                  <p class="console-sub">Add a highway delay and re-plan.</p>
+                  <p class="console-sub">Add a highway delay or weather shock and re-plan.</p>
                 </div>
               </div>
               <fieldset class="field">
@@ -371,7 +379,7 @@
                 <span class="presets-label">Try</span>
                 <button type="button" class="chip-btn" data-preset="ALL|6">6 h on every corridor</button>
                 <button type="button" class="chip-btn" data-preset="D1|8">8 h on the Mumbai route</button>
-                <button type="button" class="chip-btn" data-preset="D4|12">12 h on the processing route</button>
+                <button type="button" class="chip-btn" id="rainScenarioChip" style="background: rgba(44, 203, 230, 0.22); border: 1px solid #2ccbe6; color: #2ccbe6; font-weight: 600;">🌧️ Monsoon Rain Delay</button>
               </div>
               <button type="button" id="runJamBtn" class="btn btn-jam btn-block" data-busy="Re-planning around the jam…">
                 <span class="spinner" aria-hidden="true"></span><span class="btn-text" id="runJamLabel">Simulate jam</span>

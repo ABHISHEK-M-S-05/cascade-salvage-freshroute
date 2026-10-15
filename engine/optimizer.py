@@ -55,6 +55,33 @@ class CascadeOptimizer:
 
         return batches, destinations, routes
 
+    def load_scenario_data(self, scenario_name: str = "default") -> Tuple[List[Dict[str, Any]], List[Dict[str, Any]], List[Dict[str, Any]]]:
+        """Loads specific scenario datasets (e.g. 'rain_delay', 'harvest_glut', 'default')."""
+        scenarios_dir = self.data_dir / "scenarios"
+        scenario_key = (scenario_name or "default").lower().replace(" ", "_")
+
+        if scenario_key in ["rain_delay", "monsoon", "rain"]:
+            batches_p = scenarios_dir / "rain_delay_batches.json"
+            routes_p = scenarios_dir / "rain_delay_routes.json"
+            dests_p = self.data_dir / "sample_destinations.json"
+            if batches_p.exists() and routes_p.exists():
+                with open(batches_p, "r", encoding="utf-8") as f: batches = json.load(f)
+                with open(routes_p, "r", encoding="utf-8") as f: routes = json.load(f)
+                with open(dests_p, "r", encoding="utf-8") as f: destinations = json.load(f)
+                return batches, destinations, routes
+
+        elif scenario_key in ["harvest_glut", "bumper_harvest", "glut"]:
+            batches_p = scenarios_dir / "harvest_glut_batches.json"
+            dests_p = self.data_dir / "sample_destinations.json"
+            routes_p = self.data_dir / "sample_routes.json"
+            if batches_p.exists():
+                with open(batches_p, "r", encoding="utf-8") as f: batches = json.load(f)
+                with open(routes_p, "r", encoding="utf-8") as f: routes = json.load(f)
+                with open(dests_p, "r", encoding="utf-8") as f: destinations = json.load(f)
+                return batches, destinations, routes
+
+        return self.load_default_data()
+
     def _sync_routes_to_destinations(
         self, destinations: List[Dict[str, Any]], routes: List[Dict[str, Any]]
     ) -> List[Dict[str, Any]]:
@@ -169,6 +196,13 @@ class CascadeOptimizer:
 
         Returns the exact JSON response contract.
         """
+        if batches is None or destinations is None:
+            def_batches, def_dests, def_routes = self.load_default_data()
+            batches = batches if batches is not None else def_batches
+            destinations = destinations if destinations is not None else def_dests
+            if routes is None:
+                routes = def_routes
+
         if routes:
             synced_destinations = self._sync_routes_to_destinations(destinations, routes)
         else:
@@ -471,11 +505,21 @@ class CascadeOptimizer:
         batches_modified = copy.deepcopy(batches)
         destinations_modified = copy.deepcopy(destinations)
 
-        if scenario_type == "HIGHWAY_CONGESTION":
+        if scenario_type in ["HIGHWAY_CONGESTION", "HIGHWAY_JAM"]:
             for r in routes_modified:
-                if r["dest_id"] in affected_dest_ids:
+                if affected_dest_ids is None or r["dest_id"] in affected_dest_ids:
                     r["transit_time_hrs"] += delay_hrs
                     r["status"] = "CONGESTED"
+
+        elif scenario_type in ["RAIN_DELAY", "MONSOON_FLOOD", "WATERLOGGING"]:
+            # Rain & waterlogging causes severe highway transit delay (+8-12h) and 30% moisture decay
+            for r in routes_modified:
+                if affected_dest_ids is None or r["dest_id"] in affected_dest_ids:
+                    r["transit_time_hrs"] += (delay_hrs or 8.0)
+                    r["status"] = "WATERLOGGED"
+            for b in batches_modified:
+                if any(c in b["commodity"] for c in ["Tomato", "Spinach", "Banana", "Capsicum"]):
+                    b["shelf_life_hrs"] = max(4.0, round(float(b["shelf_life_hrs"]) * 0.7, 1))
 
         elif scenario_type == "REFRIGERATION_FAILURE":
             for b in batches_modified:

@@ -1,0 +1,58 @@
+[
+  {
+    "batch_id": "B001",
+    "commodity": "Tomato (Hybrid)",
+    "quantity_kg": 2500,
+    "shelf_life_hrs": 14.0,
+    "quality_grade": "B",
+    "base_cost_per_kg": 15.0
+  },
+  {
+    "batch_id": "B002",
+    "commodity": "Tomato (Hybrid)",
+    "quantity_kg": 3000,
+    "shelf_life_hrs": 40.0,
+    "quality_grade": "A",
+    "base_cost_per_kg": 16.0
+  },
+  {
+    "batch_id": "B003",
+    "commodity": "Capsicum (Green)",
+    "quantity_kg": 1800,
+    "shelf_life_hrs": 35.0,
+    "quality_grade": "A",
+    "base_cost_per_kg": 20.0
+  },
+  {
+    "batch_id": "B004",
+    "commodity": "Robusta Banana",
+    "quantity_kg": 2200,
+    "shelf_life_hrs": 24.0,
+    "quality_grade": "B",
+    "base_cost_per_kg": 12.0
+  },
+  {
+    "batch_id": "B005",
+    "commodity": "Onion (Nashik Red)",
+    "quantity_kg": 1500,
+    "shelf_life_hrs": 48.0,
+    "quality_grade": "A",
+    "base_cost_per_kg": 18.0
+  },
+  {
+    "batch_id": "B006",
+    "commodity": "Spinach (Leafy Greens)",
+    "quantity_kg": 1200,
+    "shelf_life_hrs": 9.0,
+    "quality_grade": "B",
+    "base_cost_per_kg": 10.0
+  },
+  {
+    "batch_id": "B007",
+    "commodity": "Tomato (Local)",
+    "quantity_kg": 800,
+    "shelf_life_hrs": 10.0,
+    "quality_grade": "C",
+    "base_cost_per_kg": 11.0
+  }
+]

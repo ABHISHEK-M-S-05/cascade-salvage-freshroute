@@ -1,0 +1,42 @@
+[
+  {
+    "batch_id": "B001",
+    "commodity": "Tomato (Hybrid)",
+    "quantity_kg": 4500,
+    "shelf_life_hrs": 22.0,
+    "quality_grade": "B",
+    "base_cost_per_kg": 10.0
+  },
+  {
+    "batch_id": "B002",
+    "commodity": "Tomato (Hybrid)",
+    "quantity_kg": 5000,
+    "shelf_life_hrs": 55.0,
+    "quality_grade": "A",
+    "base_cost_per_kg": 12.0
+  },
+  {
+    "batch_id": "B003",
+    "commodity": "Tomato (Local)",
+    "quantity_kg": 3500,
+    "shelf_life_hrs": 18.0,
+    "quality_grade": "C",
+    "base_cost_per_kg": 8.0
+  },
+  {
+    "batch_id": "B004",
+    "commodity": "Capsicum (Green)",
+    "quantity_kg": 2000,
+    "shelf_life_hrs": 50.0,
+    "quality_grade": "A",
+    "base_cost_per_kg": 18.0
+  },
+  {
+    "batch_id": "B005",
+    "commodity": "Onion (Nashik Red)",
+    "quantity_kg": 4000,
+    "shelf_life_hrs": 72.0,
+    "quality_grade": "A",
+    "base_cost_per_kg": 14.0
+  }
+]

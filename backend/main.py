@@ -3,6 +3,7 @@ Cascade Salvage Backend API
 FastAPI server exposing optimization and disruption simulation endpoints
 """
 
+import copy
 import json
 import sys
 from pathlib import Path
@@ -62,11 +63,16 @@ except Exception as e:
 # Request models
 class OptimizeRequest(BaseModel):
     delay_hrs: Optional[float] = 0.0
+    scenario: Optional[str] = None
+    batches: Optional[List[Dict]] = None
+    destinations: Optional[List[Dict]] = None
+    routes: Optional[List[Dict]] = None
 
 class DisruptionRequest(BaseModel):
-    delay_hrs: float
+    delay_hrs: float = 6.0
     disruption_type: str = "HIGHWAY_JAM"
     affected_dest_id: Optional[str] = None
+    scenario: Optional[str] = None
 
 # Mock fallback response
 def get_mock_response():
@@ -148,31 +154,62 @@ async def get_data():
         "routes": routes_data
     }
 
+@app.get("/api/scenarios")
+async def get_scenarios():
+    """List all available situation scenarios for testing and simulation"""
+    return {
+        "scenarios": [
+            {
+                "id": "default",
+                "name": "Standard Operations (Nashik Corridor)",
+                "description": "Baseline produce distribution under normal weather and clear logistics corridors.",
+                "batches_count": len(batches_data)
+            },
+            {
+                "id": "rain_delay",
+                "name": "Monsoon Rain & Waterlogging Delay",
+                "description": "Heavy Western Ghats rainfall causing +8h to +14h highway delays and 30% moisture decay.",
+                "batches_count": 7
+            },
+            {
+                "id": "harvest_glut",
+                "name": "Bumper Harvest Surplus Glut",
+                "description": "19,000 kg harvest surplus oversupplying mandis; massive salvage redirected to processing.",
+                "batches_count": 5
+            }
+        ]
+    }
+
 @app.post("/api/optimize")
 async def optimize(request: OptimizeRequest = None):
     """
-    Run optimization on current data
-
-    Optional payload:
-    - delay_hrs: Additional delay to apply to all routes (for testing)
+    Run optimization on current, custom, or scenario-based data
     """
     try:
         if not OPTIMIZER_AVAILABLE:
-            # Return mock response
             return get_mock_response()
 
-        # Apply delay if requested (modify routes temporarily)
-        working_routes = routes_data.copy()
-        if request and request.delay_hrs > 0:
-            working_routes = [
-                {**route, "transit_time_hrs": route["transit_time_hrs"] + request.delay_hrs}
-                for route in routes_data
-            ]
+        optimizer = CascadeOptimizer()
+
+        # Determine dataset source: custom JSON vs scenario file vs default
+        if request and request.batches:
+            working_batches = copy.deepcopy(request.batches)
+            working_destinations = copy.deepcopy(request.destinations) if request.destinations else copy.deepcopy(destinations_data)
+            working_routes = copy.deepcopy(request.routes) if request.routes else copy.deepcopy(routes_data)
+        elif request and request.scenario:
+            working_batches, working_destinations, working_routes = optimizer.load_scenario_data(request.scenario)
+        else:
+            working_batches = copy.deepcopy(batches_data)
+            working_destinations = copy.deepcopy(destinations_data)
+            working_routes = copy.deepcopy(routes_data)
+
+        # Apply additional delay if requested
+        if request and request.delay_hrs and request.delay_hrs > 0:
+            for route in working_routes:
+                route["transit_time_hrs"] += request.delay_hrs
 
         # Run optimization
-        optimizer = CascadeOptimizer()
-        result = optimizer.optimize(batches_data, destinations_data, working_routes)
-
+        result = optimizer.optimize(working_batches, working_destinations, working_routes)
         return result
 
     except Exception as e:
@@ -182,15 +219,10 @@ async def optimize(request: OptimizeRequest = None):
 async def simulate_disruption(request: DisruptionRequest):
     """
     Simulate a disruption and show re-optimization
-
-    Payload:
-    - delay_hrs: Hours of delay to apply
-    - disruption_type: Type of disruption (HIGHWAY_JAM, etc.)
-    - affected_dest_id: Which destination is affected (optional, applies to all if not specified)
+    Supports: HIGHWAY_JAM, RAIN_DELAY, REFRIGERATION_FAILURE, MANDI_CLOSURE
     """
     try:
         if not OPTIMIZER_AVAILABLE:
-            # Return mock disruption response
             mock_result = get_mock_response()
             mock_result["disruption"] = {
                 "type": request.disruption_type,
@@ -199,20 +231,18 @@ async def simulate_disruption(request: DisruptionRequest):
             }
             return mock_result
 
-        # First, get baseline allocation
         optimizer = CascadeOptimizer()
+        affected_ids = [request.affected_dest_id] if request.affected_dest_id else None
+
+        # Execute optimizer's scenario replanner
+        disrupted_result = optimizer.simulate_disruption(
+            scenario_type=request.disruption_type,
+            delay_hrs=request.delay_hrs,
+            affected_dest_ids=affected_ids
+        )
+
+        # Baseline comparison
         baseline_result = optimizer.optimize(batches_data, destinations_data, routes_data)
-
-        # Apply disruption to routes
-        disrupted_routes = routes_data.copy()
-        for route in disrupted_routes:
-            if request.affected_dest_id is None or route["dest_id"] == request.affected_dest_id:
-                route["transit_time_hrs"] += request.delay_hrs
-
-        # Re-optimize with disrupted routes
-        disrupted_result = optimizer.optimize(batches_data, destinations_data, disrupted_routes)
-
-        # Add disruption metadata
         disrupted_result["disruption"] = {
             "type": request.disruption_type,
             "delay_hrs": request.delay_hrs,

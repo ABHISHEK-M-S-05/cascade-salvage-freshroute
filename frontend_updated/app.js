@@ -480,9 +480,20 @@
   async function runPlan() {
     if (state.busy.plan) return;
     if (!(await ensureConnected())) { showOfflineToast(); return; }
-    setBusy('plan', true);
-    penguin.react('think'); penguin.say('Checking every batch against every buyer…', 2500);
+    const scEl = $('#scenarioSelect');
+    const selectedScenario = scEl ? scEl.value : 'default';
+    if (selectedScenario === 'rain_delay') {
+      penguin.react('shiver');
+      penguin.say('Monsoon flood alert! Western Ghats highways waterlogged (+14h delay). Salvaging to processing…', 3500);
+    } else if (selectedScenario === 'harvest_glut') {
+      penguin.react('cheer');
+      penguin.say('Bumper harvest surplus! Diverting 19,000 kg produce glut to processing plants…', 3500);
+    } else {
+      penguin.react('think');
+      penguin.say('Checking every batch against every buyer…', 2500);
+    }
     const body = { delay_hrs: 0 };
+    if (selectedScenario && selectedScenario !== 'default') body.scenario = selectedScenario;
     const routesUsed = copyRoutes(state.data && state.data.routes);
     try {
       const p = await request('optimize', body, { timeout: CONFIG.TIMEOUT.run });
@@ -2200,6 +2211,14 @@
     });
     $('#runPlanBtn').addEventListener('click', runPlan);
     $('#runJamBtn').addEventListener('click', runJam);
+    const scSel = $('#scenarioSelect');
+    if (scSel) scSel.addEventListener('change', () => runPlan());
+    const rainChip = $('#rainScenarioChip');
+    if (rainChip) rainChip.addEventListener('click', () => {
+      if (scSel) scSel.value = 'rain_delay';
+      toast('info', 'Monsoon Rain Delay Scenario Activated', 'Western Ghats / NH48 corridors flooded (+14h delay) with 30% humidity decay.');
+      runPlan();
+    });
     $('#resetBtn').addEventListener('click', resetLab);
     $('#reconnectBtn').addEventListener('click', () => connect());
     $$('[data-preset]').forEach((b) => b.addEventListener('click', () => {
